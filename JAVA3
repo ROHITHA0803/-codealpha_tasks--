@@ -1,0 +1,49 @@
+import java.util.*;
+
+public class SimpleChatBot {
+
+    private static final Map<String, String> predefinedResponses = new HashMap<>();
+
+    static {
+        predefinedResponses.put("hi", "Hello! How can I assist you today?");
+        predefinedResponses.put("hello", "Hi there! What can I do for you?");
+        predefinedResponses.put("how are you", "I'm just a bot, but I'm doing great! Thanks for asking.");
+        predefinedResponses.put("what is your name", "I'm CodeAlphaBot, your virtual assistant.");
+        predefinedResponses.put("bye", "Goodbye! Have a great day!");
+        predefinedResponses.put("thank you", "You're welcome!");
+        predefinedResponses.put("who created you", "I was created by a Java intern from CodeAlpha!");
+        predefinedResponses.put("help", "I can answer questions like 'What is your name', 'How are you', etc.");
+    }
+
+    public static String getResponse(String userInput) {
+        String cleanedInput = userInput.trim().toLowerCase();
+
+        for (String key : predefinedResponses.keySet()) {
+            if (cleanedInput.contains(key)) {
+                return predefinedResponses.get(key);
+            }
+        }
+
+        return "Sorry, I don't understand that. Can you rephrase?";
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("🤖 Hello! I'm CodeAlphaBot. Type 'bye' to exit.\n");
+
+        while (true) {
+            System.out.print("You: ");
+            String userInput = scanner.nextLine();
+
+            if (userInput.trim().equalsIgnoreCase("bye")) {
+                System.out.println("Bot: " + predefinedResponses.get("bye"));
+                break;
+            }
+
+            String response = getResponse(userInput);
+            System.out.println("Bot: " + response);
+        }
+
+        scanner.close();
+    }
+}
